@@ -1,0 +1,71 @@
+# ============================================================
+# .gitignore — BackEnd ASP.NET Core (.NET 8, Clean Architecture)
+# ============================================================
+
+# ----- Artefactos de compilación -----
+bin/
+obj/
+publish/
+out/
+
+# ----- NuGet -----
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+!**/[Pp]ackages/build/
+
+# ----- Visual Studio -----
+.vs/
+*.user
+*.suo
+*.userprefs
+*.userosscache
+*.sln.docstates
+
+# ----- Rider / JetBrains -----
+.idea/
+*.DotSettings.user
+
+# ----- Resultados de tests y cobertura -----
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage*/
+[Cc]overage*/
+
+# ----- Secretos y credenciales  -----
+# appsettings.json base se sube (sin datos reales).
+# Cualquier appsettings.<Entorno>.json lleva connection strings,
+# claves de API, contraseñas — NUNCA deben subirse.
+appsettings.*.json
+!appsettings.json
+
+# User Secrets (dotnet user-secrets store local)
+secrets.json
+*.secrets.json
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Certificados y claves privadas
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+
+# ----- Claude Code (permisos locales, no compartir) -----
+.claude/settings.local.json
+
+# ----- Logs de la aplicación -----
+logs/
+*.log
+
+# ----- OS -----
+.DS_Store
+Thumbs.db
+desktop.ini
