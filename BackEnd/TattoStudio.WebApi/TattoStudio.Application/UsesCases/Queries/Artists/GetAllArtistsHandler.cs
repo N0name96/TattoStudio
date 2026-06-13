@@ -15,6 +15,6 @@ public class GetAllArtistsHandler : IRequestHandler<GetAllArtistsQuery, IEnumera
 
     public async Task<IEnumerable<ArtistDTO>> Handle(GetAllArtistsQuery request, CancellationToken cancellationToken)
     {
-        return await _artistRepository.GetAllAsync(cancellationToken);
+        return await _artistRepository.GetAllAsync(request.IncludeInactive, cancellationToken);
     }
 }

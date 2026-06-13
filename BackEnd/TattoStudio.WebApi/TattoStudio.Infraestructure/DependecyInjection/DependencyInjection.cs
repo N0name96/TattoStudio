@@ -5,6 +5,7 @@ using TattoStudio.Application.Interfaces;
 using TattoStudio.Infraestructure.Persistence;
 using TattoStudio.Infraestructure.Repositories.Appoinments;
 using TattoStudio.Infraestructure.Repositories.Artists;
+using TattoStudio.Infraestructure.Repositories.StudioSettings;
 using TattoStudio.Infraestructure.Repositories.Users;
 using TattoStudio.Infraestructure.Services;
 
@@ -21,6 +22,7 @@ namespace TattoStudio.Infraestructure
             services.AddScoped<IAppoinmentRepository, AppoinmentRepository>();
             services.AddScoped<IArtistRepository, ArtistRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStudioSettingsRepository, StudioSettingsRepository>();
             services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
             services.AddScoped<IJwtService, JwtService>();
 

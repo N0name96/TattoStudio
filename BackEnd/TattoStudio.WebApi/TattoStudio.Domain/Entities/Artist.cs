@@ -9,4 +9,6 @@ public class Artist
     public string? PhoneNumber { get; set; }
     public decimal Comision { get; set; }
     public Guid UserId { get; set; }
+    public bool IsActive { get; set; } = true;
+    public DateTime? DeactivatedAt { get; set; }
 }

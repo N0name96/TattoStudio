@@ -12,6 +12,8 @@ namespace TattoStudio.Application.DTOs.Appoinments
         public decimal? TotalPrice { get; init; }
         public DateTime? AppoinmentDate { get; init; }
         public bool? SignedConsentForm { get; init; }
+        public int? DurationMinutes { get; init; }
+        public string? CancellationReason { get; init; }
         public DateTime? CreatedAt { get; init; }
         public DateTime? UpdatedAt { get; init; }
     }

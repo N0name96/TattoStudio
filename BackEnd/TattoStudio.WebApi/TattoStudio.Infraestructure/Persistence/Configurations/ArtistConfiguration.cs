@@ -17,6 +17,9 @@ public class ArtistConfiguration : IEntityTypeConfiguration<Artist>
 
         builder.HasIndex(e => e.Mail).IsUnique();
 
+        builder.Property(e => e.IsActive).IsRequired().HasDefaultValue(true);
+        builder.Property(e => e.DeactivatedAt).IsRequired(false);
+
         builder.HasOne<AppUser>()
                .WithMany()
                .HasForeignKey(e => e.UserId)

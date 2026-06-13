@@ -125,7 +125,7 @@ public class AppoinmentRepositoryIntegrationTests
         var repo = new AppoinmentRepository(context, CreateMapper());
 
         var updateRequest = new UpdateAppoinmentRequest { Name = "Updated Name" };
-        var result = await repo.UpdateAsync(entity.Id, updateRequest, CancellationToken.None);
+        var result = await repo.UpdateAsync(entity.Id, updateRequest, Guid.NewGuid(), CancellationToken.None);
 
         result.Should().NotBeNull();
         result!.Name.Should().Be("Updated Name");
@@ -203,6 +203,7 @@ public class AppoinmentRepositoryIntegrationTests
         var act = async () => await repo.UpdateAsync(
             toMove.Id,
             new UpdateAppoinmentRequest { AppoinmentDate = takenDate },
+            Guid.NewGuid(),
             CancellationToken.None);
 
         await act.Should().ThrowAsync<AppoinmentConflictException>();
@@ -239,7 +240,7 @@ public class AppoinmentRepositoryIntegrationTests
         var repo = new AppoinmentRepository(context, CreateMapper());
 
         var updateRequest = new UpdateAppoinmentRequest { Name = "Ghost" };
-        var act = async () => await repo.UpdateAsync(Guid.NewGuid(), updateRequest, CancellationToken.None);
+        var act = async () => await repo.UpdateAsync(Guid.NewGuid(), updateRequest, Guid.NewGuid(), CancellationToken.None);
 
         await act.Should().ThrowAsync<AppoinmentNotFoundException>();
     }
@@ -253,5 +254,47 @@ public class AppoinmentRepositoryIntegrationTests
         var result = await repo.GetAllAsync(CancellationToken.None);
 
         result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task CreateAsync_WithDurationMinutes_PersistsDuration()
+    {
+        using var context = CreateContext();
+        var repo = new AppoinmentRepository(context, CreateMapper());
+
+        var result = await repo.CreateAsync(new CreateAppoinmentCommand
+        {
+            ArtistId = Guid.NewGuid(),
+            Name = "Duration Test",
+            MailClient = "dur@test.com",
+            AppoinmentDate = DateTime.UtcNow.AddDays(5),
+            DurationMinutes = 180
+        }, CancellationToken.None);
+
+        result.DurationMinutes.Should().Be(180);
+        var persisted = await context.Appoinments.FindAsync(result.Id);
+        persisted!.DurationMinutes.Should().Be(180);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_WithCancellationReason_PersistsReason()
+    {
+        using var context = CreateContext();
+        var entity = BuildEntity("Reason Test");
+        context.Appoinments.Add(entity);
+        await context.SaveChangesAsync();
+
+        var repo = new AppoinmentRepository(context, CreateMapper());
+        const string reason = "Client rescheduled";
+
+        var result = await repo.UpdateAsync(
+            entity.Id,
+            new UpdateAppoinmentRequest { CancellationReason = reason },
+            Guid.NewGuid(),
+            CancellationToken.None);
+
+        result.CancellationReason.Should().Be(reason);
+        var persisted = await context.Appoinments.FindAsync(entity.Id);
+        persisted!.CancellationReason.Should().Be(reason);
     }
 }

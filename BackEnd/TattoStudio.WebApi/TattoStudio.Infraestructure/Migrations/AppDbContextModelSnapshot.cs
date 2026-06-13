@@ -66,6 +66,10 @@ namespace TattoStudio.Infraestructure.Migrations
                     b.Property<Guid>("ArtistId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("CancellationReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -75,6 +79,11 @@ namespace TattoStudio.Infraestructure.Migrations
                     b.Property<decimal>("DepositAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
+
+                    b.Property<int>("DurationMinutes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(60);
 
                     b.Property<string>("MailClient")
                         .IsRequired()
@@ -93,6 +102,11 @@ namespace TattoStudio.Infraestructure.Migrations
                     b.Property<bool>("SignedConsentForm")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
                     b.Property<byte[]>("TattoImage")
                         .HasColumnType("bytea");
 
@@ -105,9 +119,47 @@ namespace TattoStudio.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtistId");
+                    b.HasIndex("ArtistId", "AppoinmentDate");
 
                     b.ToTable("Appoinments");
+                });
+
+            modelBuilder.Entity("TattoStudio.Domain.Entities.AppoinmentAuditLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AppoinmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ChangedByUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FieldName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("NewValue")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("OldValue")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppoinmentId");
+
+                    b.HasIndex("ChangedByUserId");
+
+                    b.ToTable("AppoinmentAuditLogs");
                 });
 
             modelBuilder.Entity("TattoStudio.Domain.Entities.Artist", b =>
@@ -119,6 +171,14 @@ namespace TattoStudio.Infraestructure.Migrations
                     b.Property<decimal>("Comision")
                         .HasPrecision(5, 2)
                         .HasColumnType("numeric(5,2)");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Mail")
                         .IsRequired()
@@ -152,11 +212,43 @@ namespace TattoStudio.Infraestructure.Migrations
                     b.ToTable("Artists");
                 });
 
+            modelBuilder.Entity("TattoStudio.Domain.Entities.StudioSettings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<TimeOnly>("WorkdayEnd")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<TimeOnly>("WorkdayStart")
+                        .HasColumnType("time without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudioSettings");
+                });
+
             modelBuilder.Entity("TattoStudio.Domain.Entities.Appoinment", b =>
                 {
                     b.HasOne("TattoStudio.Domain.Entities.Artist", null)
                         .WithMany()
                         .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TattoStudio.Domain.Entities.AppoinmentAuditLog", b =>
+                {
+                    b.HasOne("TattoStudio.Domain.Entities.Appoinment", null)
+                        .WithMany()
+                        .HasForeignKey("AppoinmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TattoStudio.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("ChangedByUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

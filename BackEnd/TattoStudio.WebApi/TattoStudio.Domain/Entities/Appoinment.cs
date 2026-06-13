@@ -1,3 +1,5 @@
+using TattoStudio.Domain.Enums;
+
 namespace TattoStudio.Domain.Entities
 {
     public class Appoinment
@@ -13,6 +15,9 @@ namespace TattoStudio.Domain.Entities
         public decimal TotalPrice { get; set; }
         public DateTime AppoinmentDate { get; set; }
         public bool SignedConsentForm { get; set; } = false;
+        public AppoinmentStatus Status { get; set; } = AppoinmentStatus.Pending;
+        public int DurationMinutes { get; set; }
+        public string? CancellationReason { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

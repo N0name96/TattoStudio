@@ -26,9 +26,12 @@ public class ArtistRepository : IArtistRepository
         return _mapper.Map<ArtistDTO>(entity);
     }
 
-    public async Task<IEnumerable<ArtistDTO>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<ArtistDTO>> GetAllAsync(bool includeInactive, CancellationToken cancellationToken)
     {
-        var entities = await _context.Artists.ToListAsync(cancellationToken);
+        var query = _context.Artists.AsQueryable();
+        if (!includeInactive)
+            query = query.Where(a => a.IsActive);
+        var entities = await query.ToListAsync(cancellationToken);
         return _mapper.Map<IEnumerable<ArtistDTO>>(entities);
     }
 
@@ -42,6 +45,7 @@ public class ArtistRepository : IArtistRepository
 
         var entity = _mapper.Map<Artist>(request);
         entity.Id = Guid.NewGuid();
+        entity.IsActive = true;
 
         _context.Artists.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
@@ -63,6 +67,12 @@ public class ArtistRepository : IArtistRepository
             throw new ArtistMailConflictException(targetMail);
 
         _mapper.Map(request, entity);
+
+        if (entity.IsActive && entity.DeactivatedAt.HasValue)
+            entity.DeactivatedAt = null;
+        else if (!entity.IsActive && !entity.DeactivatedAt.HasValue)
+            entity.DeactivatedAt = DateTime.UtcNow;
+
         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<ArtistDTO>(entity);
@@ -73,7 +83,11 @@ public class ArtistRepository : IArtistRepository
         var entity = await _context.Artists.FindAsync([id], cancellationToken)
             ?? throw new ArtistNotFoundException(id);
 
-        _context.Artists.Remove(entity);
+        if (!entity.IsActive)
+            throw new ArtistAlreadyInactiveException(id);
+
+        entity.IsActive = false;
+        entity.DeactivatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

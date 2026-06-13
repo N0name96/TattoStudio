@@ -106,4 +106,62 @@ public class ArtistProfileTests
 
         dto.Should().BeNull();
     }
+
+    [Fact]
+    public void Map_ArtistToDTO_MapsIsActiveAndDeactivatedAt()
+    {
+        var deactivatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        var entity = new Artist
+        {
+            Id = Guid.NewGuid(),
+            Name = "Laura",
+            Surname = "Gómez",
+            Mail = "laura@test.com",
+            Comision = 15m,
+            IsActive = false,
+            DeactivatedAt = deactivatedAt
+        };
+
+        var dto = _mapper.Map<ArtistDTO>(entity);
+
+        dto.IsActive.Should().BeFalse();
+        dto.DeactivatedAt.Should().Be(deactivatedAt);
+    }
+
+    [Fact]
+    public void Map_UpdateRequest_WithIsActiveFalse_MapsConditionally()
+    {
+        var entity = new Artist
+        {
+            Id = Guid.NewGuid(),
+            Name = "Carlos",
+            Surname = "R",
+            Mail = "carlos@test.com",
+            Comision = 10m,
+            IsActive = true
+        };
+
+        _mapper.Map(new UpdateArtistRequest { IsActive = false }, entity);
+
+        entity.IsActive.Should().BeFalse();
+        entity.Name.Should().Be("Carlos");
+    }
+
+    [Fact]
+    public void Map_UpdateRequest_WithNullIsActive_DoesNotChangeIsActive()
+    {
+        var entity = new Artist
+        {
+            Id = Guid.NewGuid(),
+            Name = "Carlos",
+            Surname = "R",
+            Mail = "carlos@test.com",
+            Comision = 10m,
+            IsActive = true
+        };
+
+        _mapper.Map(new UpdateArtistRequest { Name = "Nuevo" }, entity);
+
+        entity.IsActive.Should().BeTrue();
+    }
 }

@@ -29,13 +29,15 @@ public class ArtistRepositoryIntegrationTests
         return services.BuildServiceProvider().GetRequiredService<IMapper>();
     }
 
-    private static Artist BuildEntity(string name = "Test Artist", string mail = "") => new()
+    private static Artist BuildEntity(string name = "Test Artist", string mail = "", bool isActive = true) => new()
     {
         Id = Guid.NewGuid(),
         Name = name,
         Surname = "Surname",
         Mail = string.IsNullOrEmpty(mail) ? $"{Guid.NewGuid()}@test.com" : mail,
-        Comision = 15m
+        Comision = 15m,
+        IsActive = isActive,
+        DeactivatedAt = isActive ? null : DateTime.UtcNow
     };
 
     // ── Happy paths ────────────────────────────────────────────────────────────
@@ -62,6 +64,8 @@ public class ArtistRepositoryIntegrationTests
         result.Surname.Should().Be(request.Surname);
         result.Mail.Should().Be(request.Mail);
         result.Comision.Should().Be(request.Comision);
+        result.IsActive.Should().BeTrue();
+        result.DeactivatedAt.Should().BeNull();
         context.Artists.Count().Should().Be(1);
     }
 
@@ -83,20 +87,72 @@ public class ArtistRepositoryIntegrationTests
     }
 
     [Fact]
-    public async Task GetAllAsync_WithMultipleEntities_ReturnsAll()
+    public async Task GetByIdAsync_InactiveArtist_ReturnsArtistRegardlessOfStatus()
+    {
+        using var context = CreateContext();
+        var entity = BuildEntity("Marcos", "marcos@test.com", isActive: false);
+        context.Artists.Add(entity);
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.GetByIdAsync(entity.Id, CancellationToken.None);
+
+        result.Should().NotBeNull();
+        result.IsActive.Should().BeFalse();
+        result.DeactivatedAt.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task GetAllAsync_WithMultipleEntities_ReturnsOnlyActiveByDefault()
     {
         using var context = CreateContext();
         context.Artists.AddRange(
             BuildEntity("A", "a@test.com"),
             BuildEntity("B", "b@test.com"),
-            BuildEntity("C", "c@test.com"));
+            BuildEntity("C", "c@test.com", isActive: false));
         await context.SaveChangesAsync();
 
         var repo = new ArtistRepository(context, CreateMapper());
 
-        var result = await repo.GetAllAsync(CancellationToken.None);
+        var result = await repo.GetAllAsync(false, CancellationToken.None);
+
+        result.Should().HaveCount(2);
+        result.Should().OnlyContain(a => a.IsActive);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_IncludeInactiveTrue_ReturnsAllArtists()
+    {
+        using var context = CreateContext();
+        context.Artists.AddRange(
+            BuildEntity("A", "a@test.com"),
+            BuildEntity("B", "b@test.com"),
+            BuildEntity("C", "c@test.com", isActive: false));
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.GetAllAsync(true, CancellationToken.None);
 
         result.Should().HaveCount(3);
+    }
+
+    [Fact]
+    public async Task GetAllAsync_IncludeInactiveFalse_ReturnsOnlyActive()
+    {
+        using var context = CreateContext();
+        context.Artists.AddRange(
+            BuildEntity("A", "a@test.com"),
+            BuildEntity("B", "b@test.com", isActive: false));
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.GetAllAsync(false, CancellationToken.None);
+
+        result.Should().HaveCount(1);
+        result.First().Name.Should().Be("A");
     }
 
     [Fact]
@@ -105,7 +161,23 @@ public class ArtistRepositoryIntegrationTests
         using var context = CreateContext();
         var repo = new ArtistRepository(context, CreateMapper());
 
-        var result = await repo.GetAllAsync(CancellationToken.None);
+        var result = await repo.GetAllAsync(false, CancellationToken.None);
+
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetAllAsync_NoActiveArtists_ReturnsEmptyList()
+    {
+        using var context = CreateContext();
+        context.Artists.AddRange(
+            BuildEntity("A", "a@test.com", isActive: false),
+            BuildEntity("B", "b@test.com", isActive: false));
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.GetAllAsync(false, CancellationToken.None);
 
         result.Should().BeEmpty();
     }
@@ -131,6 +203,54 @@ public class ArtistRepositoryIntegrationTests
     }
 
     [Fact]
+    public async Task UpdateAsync_SetIsActiveFalse_SetsDeactivatedAt()
+    {
+        using var context = CreateContext();
+        var entity = BuildEntity("Carlos", "carlos@test.com");
+        context.Artists.Add(entity);
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.UpdateAsync(entity.Id, new UpdateArtistRequest { IsActive = false }, CancellationToken.None);
+
+        result.IsActive.Should().BeFalse();
+        result.DeactivatedAt.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task UpdateAsync_SetIsActiveTrue_ClearsDeactivatedAt()
+    {
+        using var context = CreateContext();
+        var entity = BuildEntity("Marcos", "marcos@test.com", isActive: false);
+        context.Artists.Add(entity);
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.UpdateAsync(entity.Id, new UpdateArtistRequest { IsActive = true }, CancellationToken.None);
+
+        result.IsActive.Should().BeTrue();
+        result.DeactivatedAt.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task UpdateAsync_NullIsActive_DoesNotChangeActiveState()
+    {
+        using var context = CreateContext();
+        var entity = BuildEntity("Marcos", "marcos@test.com", isActive: false);
+        context.Artists.Add(entity);
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var result = await repo.UpdateAsync(entity.Id, new UpdateArtistRequest { Name = "Nuevo" }, CancellationToken.None);
+
+        result.IsActive.Should().BeFalse();
+        result.Name.Should().Be("Nuevo");
+    }
+
+    [Fact]
     public async Task UpdateAsync_SameMailSameArtist_DoesNotThrowConflict()
     {
         using var context = CreateContext();
@@ -149,7 +269,7 @@ public class ArtistRepositoryIntegrationTests
     }
 
     [Fact]
-    public async Task DeleteAsync_ExistingId_RemovesFromDatabase()
+    public async Task DeleteAsync_ActiveArtist_SetsIsActiveFalseAndDeactivatedAt()
     {
         using var context = CreateContext();
         var entity = BuildEntity();
@@ -160,7 +280,10 @@ public class ArtistRepositoryIntegrationTests
 
         await repo.DeleteAsync(entity.Id, CancellationToken.None);
 
-        context.Artists.Count().Should().Be(0);
+        var persisted = await context.Artists.FindAsync(entity.Id);
+        persisted.Should().NotBeNull();
+        persisted!.IsActive.Should().BeFalse();
+        persisted.DeactivatedAt.Should().NotBeNull();
     }
 
     // ── Bad paths ──────────────────────────────────────────────────────────────
@@ -230,6 +353,21 @@ public class ArtistRepositoryIntegrationTests
             CancellationToken.None);
 
         await act.Should().ThrowAsync<ArtistMailConflictException>();
+    }
+
+    [Fact]
+    public async Task DeleteAsync_InactiveArtist_ThrowsArtistAlreadyInactiveException()
+    {
+        using var context = CreateContext();
+        var entity = BuildEntity(isActive: false);
+        context.Artists.Add(entity);
+        await context.SaveChangesAsync();
+
+        var repo = new ArtistRepository(context, CreateMapper());
+
+        var act = async () => await repo.DeleteAsync(entity.Id, CancellationToken.None);
+
+        await act.Should().ThrowAsync<ArtistAlreadyInactiveException>();
     }
 
     [Fact]

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TattoStudio.Domain.Entities;
+using TattoStudio.Domain.Enums;
 
 namespace TattoStudio.Infraestructure.Persistence.Configurations
 {
@@ -14,6 +15,15 @@ namespace TattoStudio.Infraestructure.Persistence.Configurations
             builder.Property(e => e.PhoneNumber).HasMaxLength(20);
             builder.Property(e => e.DepositAmount).HasPrecision(18, 2);
             builder.Property(e => e.TotalPrice).HasPrecision(18, 2);
+            builder.Property(e => e.Status)
+                .IsRequired()
+                .HasDefaultValue(AppoinmentStatus.Pending);
+            builder.Property(e => e.DurationMinutes)
+                .IsRequired()
+                .HasDefaultValue(60);
+            builder.Property(e => e.CancellationReason).HasMaxLength(500);
+
+            builder.HasIndex(e => new { e.ArtistId, e.AppoinmentDate });
 
             builder.HasOne<Artist>()
                    .WithMany()

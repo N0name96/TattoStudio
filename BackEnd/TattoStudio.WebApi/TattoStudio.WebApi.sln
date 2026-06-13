@@ -1,7 +1,18 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.320.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1863C8FC-A699-493E-BCB3-6D06288446A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{E3FB0774-A286-4A92-8416-1B619A7821AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{11133855-5055-434C-8994-CBE2D38AB037}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{32DD0006-14AB-4B12-88A8-E42C9F33CC89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{55B85B4D-B14F-44DE-BE5E-D21B05DE308C}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.WebApi", "TattoStudio.WebApi\TattoStudio.WebApi.csproj", "{03C1BEF3-868C-98B6-1422-E9B83AA535F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.Infraestructure", "TattoStudio.Infraestructure\TattoStudio.Infraestructure.csproj", "{314AE597-85AF-DADE-3523-E2C8E0EF84A5}"
@@ -47,6 +58,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{674D2E81-EA09-9BAA-67EF-3D9E3BBC5876} = {1863C8FC-A699-493E-BCB3-6D06288446A8}
+		{41870689-4365-876E-2C94-EB7DB4D9EEDE} = {E3FB0774-A286-4A92-8416-1B619A7821AB}
+		{314AE597-85AF-DADE-3523-E2C8E0EF84A5} = {11133855-5055-434C-8994-CBE2D38AB037}
+		{03C1BEF3-868C-98B6-1422-E9B83AA535F3} = {32DD0006-14AB-4B12-88A8-E42C9F33CC89}
+		{945DD244-CCF6-4DED-AC2F-5849DDBF6AD1} = {55B85B4D-B14F-44DE-BE5E-D21B05DE308C}
+		{9B159580-CB3C-4A76-8F5C-F2D964D30A35} = {55B85B4D-B14F-44DE-BE5E-D21B05DE308C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA12D6A1-75ED-422B-96F9-92455AED5757}

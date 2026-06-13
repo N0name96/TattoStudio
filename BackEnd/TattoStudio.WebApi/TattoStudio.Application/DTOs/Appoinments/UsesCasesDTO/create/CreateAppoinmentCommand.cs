@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 
 namespace TattoStudio.Application.DTOs.Appoinments
@@ -14,5 +15,7 @@ namespace TattoStudio.Application.DTOs.Appoinments
         public decimal TotalPrice { get; init; }
         public DateTime AppoinmentDate { get; init; }
         public bool SignedConsentForm { get; init; } = false;
+        [Required, Range(1, 480)]
+        public int DurationMinutes { get; init; }
     }
 }

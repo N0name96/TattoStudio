@@ -19,4 +19,6 @@ public record UpdateArtistRequest
 
     [Range(0, 100)]
     public decimal? Comision { get; init; }
+
+    public bool? IsActive { get; init; }
 }

@@ -15,7 +15,7 @@ namespace TattoStudio.Application.UsesCases.Commands.Appoinments
 
         public async Task<AppoinmentDTO> Handle(UpdateAppoinmentCommand request, CancellationToken cancellationToken)
         {
-            return await appoinmentRepository.UpdateAsync(request.AppoinmentId, request.Data, cancellationToken);
+            return await appoinmentRepository.UpdateAsync(request.AppoinmentId, request.Data, request.ChangedByUserId, cancellationToken);
         }
     }
 }

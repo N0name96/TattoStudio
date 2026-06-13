@@ -3,6 +3,6 @@ using TattoStudio.Application.DTOs.Appoinments;
 
 namespace TattoStudio.Application.UsesCases.Commands.Appoinments
 {
-    public record UpdateAppoinmentCommand(Guid AppoinmentId, UpdateAppoinmentRequest Data)
+    public record UpdateAppoinmentCommand(Guid AppoinmentId, UpdateAppoinmentRequest Data, Guid ChangedByUserId)
         : IRequest<AppoinmentDTO>;
 }
