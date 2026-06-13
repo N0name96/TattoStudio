@@ -11,7 +11,7 @@ namespace TattoStudio.Application
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-            services.AddAutoMapper(cfg => cfg.AddMaps(typeof(AppoinmentProfile)));
+            services.AddAutoMapper(cfg => cfg.AddMaps(typeof(AppoinmentProfile), typeof(ArtistProfile), typeof(UserProfile)));
 
             return services;
         }

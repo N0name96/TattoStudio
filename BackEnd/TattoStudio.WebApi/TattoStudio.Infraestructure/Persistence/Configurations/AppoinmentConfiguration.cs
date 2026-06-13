@@ -14,6 +14,11 @@ namespace TattoStudio.Infraestructure.Persistence.Configurations
             builder.Property(e => e.PhoneNumber).HasMaxLength(20);
             builder.Property(e => e.DepositAmount).HasPrecision(18, 2);
             builder.Property(e => e.TotalPrice).HasPrecision(18, 2);
+
+            builder.HasOne<Artist>()
+                   .WithMany()
+                   .HasForeignKey(e => e.ArtistId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -69,3 +69,8 @@ logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+
+specificaciones/
+doc/
+.claude/
