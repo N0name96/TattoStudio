@@ -1,6 +1,0 @@
-{
-  "TattoStudio.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/run\/media\/n0name\/E67C8FB07C8F7A57\/Git\/TattoStudio\/BackEnd\/TattoStudio.WebApi\/TattoStudio.Api",
-  "TattoStudio.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/run\/media\/n0name\/E67C8FB07C8F7A57\/Git\/TattoStudio\/BackEnd\/TattoStudio.WebApi\/TattoStudio.Application",
-  "TattoStudio.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/run\/media\/n0name\/E67C8FB07C8F7A57\/Git\/TattoStudio\/BackEnd\/TattoStudio.WebApi\/TattoStudio.Domain",
-  "TattoStudio.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/run\/media\/n0name\/E67C8FB07C8F7A57\/Git\/TattoStudio\/BackEnd\/TattoStudio.WebApi\/TattoStudio.Infrastructure"
-}
