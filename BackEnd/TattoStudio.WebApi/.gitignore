@@ -1,4 +1,5 @@
 specs
 .claude
-
-/run/media/n0name/E67C8FB07C8F7A57/Git/TattoStudio/BackEnd/TattoStudio.WebApi/TattoStudio.Api/appsettings.Development.json
+**/appsettings.Development.json
+**/bin/
+**/obj/
