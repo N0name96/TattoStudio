@@ -24,14 +24,17 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<TattoStudioDbContext>();
-    var creator = db.Database.GetService<IRelationalDatabaseCreator>() as RelationalDatabaseCreator;
-    try
+    if (db.Database.IsRelational())
     {
-        await creator!.CreateTablesAsync();
-    }
-    catch (DbException ex) when (ex.SqlState == "42P07")
-    {
-        // Las tablas ya existen, no es necesario crearlas
+        var creator = db.Database.GetService<IRelationalDatabaseCreator>() as RelationalDatabaseCreator;
+        try
+        {
+            await creator!.CreateTablesAsync();
+        }
+        catch (DbException ex) when (ex.SqlState == "42P07")
+        {
+            // Las tablas ya existen, no es necesario crearlas
+        }
     }
 }
 
@@ -45,6 +48,9 @@ app.UseExceptionHandler();
 app.UseHttpsRedirection();
 
 app.MapAuthController();
+app.MapClientsController();
+app.MapArtistsController();
+app.MapAppointmentsController();
 
 app.Run();
 

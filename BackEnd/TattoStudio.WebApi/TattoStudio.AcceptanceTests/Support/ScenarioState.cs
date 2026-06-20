@@ -9,4 +9,5 @@ public class ScenarioState
     public HttpResponseMessage? Response { get; set; }
     public string ResponseBody { get; set; } = string.Empty;
     public string? JwtToken { get; set; }
+    public Guid? LastCreatedId { get; set; }
 }

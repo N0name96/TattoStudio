@@ -12,7 +12,10 @@ public sealed class TattoStudioDbContext : DbContext
     public TattoStudioDbContext(DbContextOptions<TattoStudioDbContext> options)
         : base(options) { }
 
-    public DbSet<User> Users => Set<User>();
+    public DbSet<User>        Users        => Set<User>();
+    public DbSet<Client>      Clients      => Set<Client>();
+    public DbSet<Artist>      Artists      => Set<Artist>();
+    public DbSet<Appointment> Appointments => Set<Appointment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

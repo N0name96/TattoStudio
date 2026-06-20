@@ -171,18 +171,18 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 10
     await testRunner.GivenAsync("no existe un usuario con el email \"nuevo@tattostudio.com\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
                             "Email",
                             "Password",
                             "Name",
                             "Role"});
-                table1.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "nuevo@tattostudio.com",
                             "SecurePass123!",
                             "Juan Pérez",
                             "1"});
 #line 11
-    await testRunner.WhenAsync("envío POST a \"/api/auth/register\" con el cuerpo:", ((string)(null)), table1, "When ");
+    await testRunner.WhenAsync("envío POST a \"/api/auth/register\" con el cuerpo:", ((string)(null)), table8, "When ");
 #line hidden
 #line 14
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 201", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -222,18 +222,18 @@ namespace TattoStudio.AcceptanceTests.Features
     await testRunner.GivenAsync("existe un usuario registrado con email \"duplicado@tattostudio.com\" y password \"Pa" +
                         "ss123!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
                             "Email",
                             "Password",
                             "Name",
                             "Role"});
-                table2.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "duplicado@tattostudio.com",
                             "OtroPass!",
                             "Ana López",
                             "1"});
 #line 19
-    await testRunner.WhenAsync("envío POST a \"/api/auth/register\" con el cuerpo:", ((string)(null)), table2, "When ");
+    await testRunner.WhenAsync("envío POST a \"/api/auth/register\" con el cuerpo:", ((string)(null)), table9, "When ");
 #line hidden
 #line 22
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 400", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -273,14 +273,14 @@ namespace TattoStudio.AcceptanceTests.Features
     await testRunner.GivenAsync("existe un usuario registrado con email \"login@tattostudio.com\" y password \"ValidP" +
                         "ass456!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
                             "Email",
                             "Password"});
-                table3.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "login@tattostudio.com",
                             "ValidPass456!"});
 #line 27
-    await testRunner.WhenAsync("envío POST a \"/api/auth/login\" con el cuerpo:", ((string)(null)), table3, "When ");
+    await testRunner.WhenAsync("envío POST a \"/api/auth/login\" con el cuerpo:", ((string)(null)), table10, "When ");
 #line hidden
 #line 30
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -320,14 +320,14 @@ namespace TattoStudio.AcceptanceTests.Features
     await testRunner.GivenAsync("existe un usuario registrado con email \"usuario@tattostudio.com\" y password \"Corr" +
                         "ectPass!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
                             "Email",
                             "Password"});
-                table4.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "usuario@tattostudio.com",
                             "ContrasenaMal!"});
 #line 35
-    await testRunner.WhenAsync("envío POST a \"/api/auth/login\" con el cuerpo:", ((string)(null)), table4, "When ");
+    await testRunner.WhenAsync("envío POST a \"/api/auth/login\" con el cuerpo:", ((string)(null)), table11, "When ");
 #line hidden
 #line 38
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 401", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -367,14 +367,14 @@ namespace TattoStudio.AcceptanceTests.Features
     await testRunner.GivenAsync("existe un usuario registrado con email \"admin@tattostudio.com\" y password \"AdminP" +
                         "ass789!\" y rol 0", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
                             "Email",
                             "Password"});
-                table5.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "admin@tattostudio.com",
                             "AdminPass789!"});
 #line 43
-    await testRunner.WhenAsync("envío POST a \"/api/auth/login\" con el cuerpo:", ((string)(null)), table5, "When ");
+    await testRunner.WhenAsync("envío POST a \"/api/auth/login\" con el cuerpo:", ((string)(null)), table12, "When ");
 #line hidden
 #line 46
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
