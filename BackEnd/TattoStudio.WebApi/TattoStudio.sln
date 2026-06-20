@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. WebApi", "1. WebApi", "{E544541D-32FC-4895-B26E-D2AC39E6C910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.Api", "TattoStudio.Api\TattoStudio.Api.csproj", "{830F6D6E-3D9C-4051-936F-328A0F9AF700}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Application", "2. Application", "{56F903CA-3B7C-4623-A14D-F5F7387F3656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.Application", "TattoStudio.Application\TattoStudio.Application.csproj", "{157FA894-A00F-4BB7-BAA5-01CA59808B2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infrastructure", "3. Infrastructure", "{695A7891-1066-4320-A4F1-7F62809B17C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.Infrastructure", "TattoStudio.Infrastructure\TattoStudio.Infrastructure.csproj", "{1691F8CF-FF27-4C95-BB83-83BAFF7072D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Domain", "4. Domain", "{96993B04-126F-4CFB-B1EC-3CD4D4068805}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.Domain", "TattoStudio.Domain\TattoStudio.Domain.csproj", "{C67BA851-DAFF-42D6-BBDD-60002B26AB40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Test", "5. Test", "{07CF51AA-2A13-4219-B40D-62EC2D7FDAF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TattoStudio.AcceptanceTests", "TattoStudio.AcceptanceTests\TattoStudio.AcceptanceTests.csproj", "{15588A52-E05E-4972-B299-B73064FDB705}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{830F6D6E-3D9C-4051-936F-328A0F9AF700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{830F6D6E-3D9C-4051-936F-328A0F9AF700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{830F6D6E-3D9C-4051-936F-328A0F9AF700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{830F6D6E-3D9C-4051-936F-328A0F9AF700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157FA894-A00F-4BB7-BAA5-01CA59808B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157FA894-A00F-4BB7-BAA5-01CA59808B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157FA894-A00F-4BB7-BAA5-01CA59808B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157FA894-A00F-4BB7-BAA5-01CA59808B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1691F8CF-FF27-4C95-BB83-83BAFF7072D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1691F8CF-FF27-4C95-BB83-83BAFF7072D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1691F8CF-FF27-4C95-BB83-83BAFF7072D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1691F8CF-FF27-4C95-BB83-83BAFF7072D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C67BA851-DAFF-42D6-BBDD-60002B26AB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67BA851-DAFF-42D6-BBDD-60002B26AB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67BA851-DAFF-42D6-BBDD-60002B26AB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67BA851-DAFF-42D6-BBDD-60002B26AB40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15588A52-E05E-4972-B299-B73064FDB705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15588A52-E05E-4972-B299-B73064FDB705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15588A52-E05E-4972-B299-B73064FDB705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15588A52-E05E-4972-B299-B73064FDB705}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{830F6D6E-3D9C-4051-936F-328A0F9AF700} = {E544541D-32FC-4895-B26E-D2AC39E6C910}
+		{157FA894-A00F-4BB7-BAA5-01CA59808B2E} = {56F903CA-3B7C-4623-A14D-F5F7387F3656}
+		{1691F8CF-FF27-4C95-BB83-83BAFF7072D4} = {695A7891-1066-4320-A4F1-7F62809B17C3}
+		{C67BA851-DAFF-42D6-BBDD-60002B26AB40} = {96993B04-126F-4CFB-B1EC-3CD4D4068805}
+		{15588A52-E05E-4972-B299-B73064FDB705} = {07CF51AA-2A13-4219-B40D-62EC2D7FDAF2}
+	EndGlobalSection
+EndGlobal

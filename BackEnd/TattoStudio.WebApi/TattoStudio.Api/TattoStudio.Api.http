@@ -1,0 +1,6 @@
+@TattoStudio.Api_HostAddress = http://localhost:5018
+
+GET {{TattoStudio.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
