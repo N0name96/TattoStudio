@@ -10,16 +10,10 @@ namespace TattoStudio.Infrastructure.Repositories;
 /// Implementación EF Core del repositorio de citas.
 /// La consulta de solapamiento (REG-03-02) usa <c>AnyAsync</c> tal como exige el spec §4.
 /// </summary>
-public sealed class AppointmentRepository : IAppointmentRepository
+public sealed class AppointmentRepository : BaseRepository<Appointment>, IAppointmentRepository
 {
-    private readonly TattoStudioDbContext _context;
-
     /// <summary>Inyecta el DbContext principal.</summary>
-    public AppointmentRepository(TattoStudioDbContext context) => _context = context;
-
-    /// <inheritdoc/>
-    public async Task AddAsync(Appointment appointment, CancellationToken ct = default) =>
-        await _context.Appointments.AddAsync(appointment, ct);
+    public AppointmentRepository(TattoStudioDbContext context) : base(context) { }
 
     /// <inheritdoc/>
     public Task<Appointment?> FindByIdAsync(Guid id, CancellationToken ct = default) =>
@@ -68,7 +62,4 @@ public sealed class AppointmentRepository : IAppointmentRepository
         return await query.ToListAsync(ct);
     }
 
-    /// <inheritdoc/>
-    public Task SaveChangesAsync(CancellationToken ct = default) =>
-        _context.SaveChangesAsync(ct);
 }

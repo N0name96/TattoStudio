@@ -16,6 +16,7 @@ public sealed class TattoStudioDbContext : DbContext
     public DbSet<Client>      Clients      => Set<Client>();
     public DbSet<Artist>      Artists      => Set<Artist>();
     public DbSet<Appointment> Appointments => Set<Appointment>();
+    public DbSet<Consent>     Consents     => Set<Consent>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

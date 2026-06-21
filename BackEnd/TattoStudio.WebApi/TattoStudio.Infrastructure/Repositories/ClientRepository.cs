@@ -8,18 +8,12 @@ namespace TattoStudio.Infrastructure.Repositories;
 /// <summary>
 /// Implementación EF Core del repositorio de clientes.
 /// </summary>
-public sealed class ClientRepository : IClientRepository
+public sealed class ClientRepository : BaseRepository<Client>, IClientRepository
 {
-    private readonly TattoStudioDbContext _context;
+    /// <summary>Inyecta el DbContext principal.</summary>
+    public ClientRepository(TattoStudioDbContext context) : base(context) { }
 
-    public ClientRepository(TattoStudioDbContext context) => _context = context;
-
-    public async Task AddAsync(Client client, CancellationToken ct = default) =>
-        await _context.Clients.AddAsync(client, ct);
-
+    /// <inheritdoc/>
     public Task<Client?> FindByIdAsync(Guid id, CancellationToken ct = default) =>
         _context.Clients.FirstOrDefaultAsync(c => c.Id == id, ct);
-
-    public Task SaveChangesAsync(CancellationToken ct = default) =>
-        _context.SaveChangesAsync(ct);
 }

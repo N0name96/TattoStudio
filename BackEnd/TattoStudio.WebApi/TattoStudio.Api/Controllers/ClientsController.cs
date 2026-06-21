@@ -12,7 +12,7 @@ public static class ClientsController
     /// <summary>Registra las rutas del controlador de clientes en el router de la aplicación.</summary>
     public static void MapClientsController(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/clients");
+        var group = app.MapGroup("/api/clients").RequireAuthorization("Staff").WithTags("Clientes");
 
         group.MapPost("/", async (
             CreateClientRequest request,

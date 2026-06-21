@@ -12,7 +12,7 @@ public static class ArtistsController
     /// <summary>Registra las rutas del controlador de artistas en el router de la aplicación.</summary>
     public static void MapArtistsController(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/artists");
+        var group = app.MapGroup("/api/artists").RequireAuthorization("Staff").WithTags("Artistas");
 
         group.MapPost("/", async (
             CreateArtistRequest request,
@@ -34,7 +34,7 @@ public static class ArtistsController
         {
             var result = await mediator.Send(new GetAllArtistsQuery(), ct);
             return Results.Ok(result);
-        });
+        }).AllowAnonymous();
     }
 }
 

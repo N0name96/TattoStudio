@@ -8,18 +8,12 @@ namespace TattoStudio.Infrastructure.Repositories;
 /// <summary>
 /// Implementación EF Core del repositorio de artistas.
 /// </summary>
-public sealed class ArtistRepository : IArtistRepository
+public sealed class ArtistRepository : BaseRepository<Artist>, IArtistRepository
 {
-    private readonly TattoStudioDbContext _context;
+    /// <summary>Inyecta el DbContext principal.</summary>
+    public ArtistRepository(TattoStudioDbContext context) : base(context) { }
 
-    public ArtistRepository(TattoStudioDbContext context) => _context = context;
-
-    public async Task AddAsync(Artist artist, CancellationToken ct = default) =>
-        await _context.Artists.AddAsync(artist, ct);
-
+    /// <inheritdoc/>
     public async Task<IReadOnlyList<Artist>> GetAllAsync(CancellationToken ct = default) =>
         await _context.Artists.ToListAsync(ct);
-
-    public Task SaveChangesAsync(CancellationToken ct = default) =>
-        _context.SaveChangesAsync(ct);
 }

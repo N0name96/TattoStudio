@@ -1,6 +1,7 @@
 using MediatR;
 using TattoStudio.Application.UseCases.Appointments.Commands.ConfirmDeposit;
 using TattoStudio.Application.UseCases.Appointments.Commands.Create;
+using TattoStudio.Application.UseCases.Appointments.Queries.GenerateQr;
 using TattoStudio.Application.UseCases.Appointments.Queries.GetById;
 using TattoStudio.Application.UseCases.Appointments.Queries.GetCalendar;
 
@@ -15,7 +16,7 @@ public static class AppointmentsController
     /// <summary>Registra las rutas del controlador de citas en el router de la aplicación.</summary>
     public static void MapAppointmentsController(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/appointments");
+        var group = app.MapGroup("/api/appointments").RequireAuthorization("Staff").WithTags("Citas");
 
         group.MapPost("/", async (
             CreateAppointmentRequest request,
@@ -55,6 +56,15 @@ public static class AppointmentsController
             var result = await mediator.Send(
                 new GetCalendarQuery(from, to, clientId, artistId), ct);
             return Results.Ok(result);
+        });
+
+        group.MapGet("/{id:guid}/qr", async (
+            Guid              id,
+            IMediator         mediator,
+            CancellationToken ct) =>
+        {
+            var result = await mediator.Send(new GenerateQrQuery(id), ct);
+            return Results.Ok(new { qrBase64 = result.QrBase64, token = result.Token });
         });
 
         group.MapPut("/{id:guid}/confirm-deposit", async (

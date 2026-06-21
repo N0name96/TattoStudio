@@ -106,6 +106,41 @@ public class ClientsStepDefinitions
         _state.ResponseBody = await _state.Response.Content.ReadAsStringAsync();
     }
 
+    [When("envío PUT autenticado al último cliente creado con datos:")]
+    public async Task WhenEnvioPutAutenticadoAlUltimoClienteCreado(Table table)
+    {
+        var row     = table.Rows[0];
+        var payload = new
+        {
+            Name         = row["Name"],
+            Phone        = row["Phone"],
+            Email        = row["Email"],
+            BirthDate    = row["BirthDate"],
+            MedicalNotes = row.ContainsKey("MedicalNotes") ? row["MedicalNotes"] : null
+        };
+
+        var id = _state.LastCreatedId ?? Guid.Empty;
+        _state.Response     = await _client.PutAsJsonAsync($"/api/clients/{id}", payload);
+        _state.ResponseBody = await _state.Response.Content.ReadAsStringAsync();
+    }
+
+    [When("envío PUT autenticado al cliente {string} con datos:")]
+    public async Task WhenEnvioPutAutenticadoAlClienteConId(string clientId, Table table)
+    {
+        var row     = table.Rows[0];
+        var payload = new
+        {
+            Name         = row["Name"],
+            Phone        = row["Phone"],
+            Email        = row["Email"],
+            BirthDate    = row["BirthDate"],
+            MedicalNotes = row.ContainsKey("MedicalNotes") ? row["MedicalNotes"] : null
+        };
+
+        _state.Response     = await _client.PutAsJsonAsync($"/api/clients/{clientId}", payload);
+        _state.ResponseBody = await _state.Response.Content.ReadAsStringAsync();
+    }
+
     // ── Then ──────────────────────────────────────────────────────────────────
 
     [Then("el cuerpo de la respuesta contiene el email {string}")]
@@ -116,5 +151,15 @@ public class ClientsStepDefinitions
             doc.RootElement.TryGetProperty("email", out var emailProp),
             "El cuerpo de respuesta no contiene la propiedad 'email'");
         Assert.Equal(expectedEmail, emailProp.GetString(), StringComparer.OrdinalIgnoreCase);
+    }
+
+    [Then("el cuerpo de la respuesta contiene el nombre {string}")]
+    public void ThenElCuerpoContieneElNombre(string expectedName)
+    {
+        using var doc = JsonDocument.Parse(_state.ResponseBody);
+        Assert.True(
+            doc.RootElement.TryGetProperty("name", out var nameProp),
+            "El cuerpo de respuesta no contiene la propiedad 'name'");
+        Assert.Equal(expectedName, nameProp.GetString(), StringComparer.OrdinalIgnoreCase);
     }
 }

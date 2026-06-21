@@ -30,3 +30,23 @@ Feature: Gestión de Clientes (Fase 2)
   Scenario: Obtener cliente inexistente devuelve 404
     When envío GET autenticado a "/api/clients/00000000-0000-0000-0000-000000000000"
     Then la respuesta tiene el código HTTP 404
+
+  Scenario: Listar todos los clientes
+    Given existe un cliente con email "lista@tattostudio.com" y fecha de nacimiento "1990-06-01"
+    When envío GET autenticado a "/api/clients"
+    Then la respuesta tiene el código HTTP 200
+    And el cuerpo de la respuesta es una lista JSON
+
+  Scenario: Actualizar cliente exitosamente
+    Given existe un cliente con email "update@tattostudio.com" y fecha de nacimiento "1988-11-25"
+    When envío PUT autenticado al último cliente creado con datos:
+      | Name           | Phone     | Email                    | BirthDate  | MedicalNotes  |
+      | Pedro Renovado | 699887766 | renovado@tattostudio.com | 1988-11-25 | Sin alergias  |
+    Then la respuesta tiene el código HTTP 200
+    And el cuerpo de la respuesta contiene el nombre "Pedro Renovado"
+
+  Scenario: Actualizar cliente inexistente devuelve 404
+    When envío PUT autenticado al cliente "00000000-0000-0000-0000-000000000000" con datos:
+      | Name    | Phone     | Email                 | BirthDate  |
+      | Nadie   | 600000000 | nadie@tattostudio.com | 2000-01-01 |
+    Then la respuesta tiene el código HTTP 404

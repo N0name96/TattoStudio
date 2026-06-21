@@ -27,6 +27,7 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
             BusinessException      be => (StatusCodes.Status400BadRequest,          be.Message),
             UnauthorizedException  ue => (StatusCodes.Status401Unauthorized,        ue.Message),
             NotFoundException      ne => (StatusCodes.Status404NotFound,            ne.Message),
+            ForbiddenException     fe => (StatusCodes.Status403Forbidden,           fe.Message),
             DbUpdateException         => (StatusCodes.Status409Conflict,            "Conflicto de datos en base de datos."),
             _                         => (StatusCodes.Status500InternalServerError, "Error interno del servidor.")
         };

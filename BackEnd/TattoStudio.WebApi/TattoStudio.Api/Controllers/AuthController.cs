@@ -11,7 +11,7 @@ public static class AuthController
 {
     public static void MapAuthController(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/auth");
+        var group = app.MapGroup("/api/auth").WithTags("Autenticación");
 
         group.MapPost("/register", async (
             RegisterRequest   request,

@@ -122,7 +122,7 @@ namespace TattoStudio.AcceptanceTests.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Clients.feature.ndjson", 6);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Clients.feature.ndjson", 9);
         }
         
         async global::System.Threading.Tasks.Task global::Xunit.IAsyncLifetime.InitializeAsync()
@@ -174,20 +174,20 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 5
   await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email",
                             "BirthDate",
                             "MedicalNotes"});
-                table13.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Pedro García",
                             "612345678",
                             "pedro@tattostudio.com",
                             "2000-01-15",
                             "Alérgico a látex"});
 #line 11
-    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table13, "When ");
+    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table1, "When ");
 #line hidden
 #line 14
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 201", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -223,18 +223,18 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 5
   await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email",
                             "BirthDate"});
-                table14.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "Ana Martín",
                             "699001122",
                             "ana@tattostudio.com",
                             "2005-07-10"});
 #line 18
-    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table14, "When ");
+    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table2, "When ");
 #line hidden
 #line 21
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 201", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -315,6 +315,145 @@ namespace TattoStudio.AcceptanceTests.Features
     await testRunner.WhenAsync("envío GET autenticado a \"/api/clients/00000000-0000-0000-0000-000000000000\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 32
+    await testRunner.ThenAsync("la respuesta tiene el código HTTP 404", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="Listar todos los clientes")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "Gestión de Clientes (Fase 2)")]
+        [global::Xunit.TraitAttribute("Description", "Listar todos los clientes")]
+        public async global::System.Threading.Tasks.Task ListarTodosLosClientes()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "4";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Listar todos los clientes", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 34
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 5
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 35
+    await testRunner.GivenAsync("existe un cliente con email \"lista@tattostudio.com\" y fecha de nacimiento \"1990-0" +
+                        "6-01\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 36
+    await testRunner.WhenAsync("envío GET autenticado a \"/api/clients\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 37
+    await testRunner.ThenAsync("la respuesta tiene el código HTTP 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 38
+    await testRunner.AndAsync("el cuerpo de la respuesta es una lista JSON", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="Actualizar cliente exitosamente")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "Gestión de Clientes (Fase 2)")]
+        [global::Xunit.TraitAttribute("Description", "Actualizar cliente exitosamente")]
+        public async global::System.Threading.Tasks.Task ActualizarClienteExitosamente()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "5";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Actualizar cliente exitosamente", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 40
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 5
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 41
+    await testRunner.GivenAsync("existe un cliente con email \"update@tattostudio.com\" y fecha de nacimiento \"1988-" +
+                        "11-25\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                            "Name",
+                            "Phone",
+                            "Email",
+                            "BirthDate",
+                            "MedicalNotes"});
+                table3.AddRow(new string[] {
+                            "Pedro Renovado",
+                            "699887766",
+                            "renovado@tattostudio.com",
+                            "1988-11-25",
+                            "Sin alergias"});
+#line 42
+    await testRunner.WhenAsync("envío PUT autenticado al último cliente creado con datos:", ((string)(null)), table3, "When ");
+#line hidden
+#line 45
+    await testRunner.ThenAsync("la respuesta tiene el código HTTP 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 46
+    await testRunner.AndAsync("el cuerpo de la respuesta contiene el nombre \"Pedro Renovado\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="Actualizar cliente inexistente devuelve 404")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "Gestión de Clientes (Fase 2)")]
+        [global::Xunit.TraitAttribute("Description", "Actualizar cliente inexistente devuelve 404")]
+        public async global::System.Threading.Tasks.Task ActualizarClienteInexistenteDevuelve404()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "6";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Actualizar cliente inexistente devuelve 404", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 48
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 5
+  await this.FeatureBackgroundAsync();
+#line hidden
+                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                            "Name",
+                            "Phone",
+                            "Email",
+                            "BirthDate"});
+                table4.AddRow(new string[] {
+                            "Nadie",
+                            "600000000",
+                            "nadie@tattostudio.com",
+                            "2000-01-01"});
+#line 49
+    await testRunner.WhenAsync("envío PUT autenticado al cliente \"00000000-0000-0000-0000-000000000000\" con datos" +
+                        ":", ((string)(null)), table4, "When ");
+#line hidden
+#line 52
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 404", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
