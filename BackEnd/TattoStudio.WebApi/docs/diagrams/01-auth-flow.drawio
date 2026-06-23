@@ -1,0 +1,88 @@
+<mxfile>
+  <diagram name="Auth Flow">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="2" value="Flujo de Autenticación — POST /api/auth/login" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="20" width="600" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="3" value="INICIO" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="484" y="80" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Client sends request -->
+        <mxCell id="4" value="Cliente envía&lt;br&gt;POST /api/auth/login&lt;br&gt;{ email, password }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="459" y="180" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Validate payload -->
+        <mxCell id="5" value="FluentValidation&lt;br&gt;valida el payload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="459" y="280" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Validation ok? -->
+        <mxCell id="6" value="¿Payload válido?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="484" y="380" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- 400 Bad Request -->
+        <mxCell id="7" value="400 Bad Request&lt;br&gt;{ errors: [...] }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="390" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Find user by email -->
+        <mxCell id="8" value="Buscar usuario&lt;br&gt;por email en BD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="459" y="500" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- User found? -->
+        <mxCell id="9" value="¿Usuario existe y&lt;br&gt;password correcto?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="469" y="600" width="230" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- 401 Unauthorized -->
+        <mxCell id="10" value="401 Unauthorized&lt;br&gt;{ message: &quot;Credenciales inválidas&quot; }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="610" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Generate JWT -->
+        <mxCell id="11" value="JwtTokenService&lt;br&gt;genera JWT HS256&lt;br&gt;con claim &quot;role&quot;&lt;br&gt;(sub, email, role, exp)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="459" y="720" width="250" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- 200 OK -->
+        <mxCell id="12" value="200 OK&lt;br&gt;{ token: &quot;eyJ...&quot; }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="459" y="840" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Client stores JWT -->
+        <mxCell id="13" value="Cliente almacena el JWT&lt;br&gt;y lo usa en&lt;br&gt;Authorization: Bearer {token}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="459" y="940" width="250" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="14" value="FIN" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="484" y="1050" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="3" target="4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="8" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="8" target="9" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="9" target="10" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="9" target="11" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="12" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="13" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="14" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

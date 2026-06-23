@@ -23,4 +23,14 @@ public sealed class Client
     public string   Email        { get; private set; } = null!;
     public DateOnly BirthDate    { get; private set; }
     public string?  MedicalNotes { get; private set; }
+
+    /// <summary>Actualiza los datos del cliente.</summary>
+    public void Update(string name, string phone, string email, DateOnly birthDate, string? medicalNotes)
+    {
+        Name         = name;
+        Phone        = phone;
+        Email        = email;
+        BirthDate    = birthDate;
+        MedicalNotes = medicalNotes;
+    }
 }

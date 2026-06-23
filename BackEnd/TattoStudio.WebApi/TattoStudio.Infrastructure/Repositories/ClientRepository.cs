@@ -16,4 +16,8 @@ public sealed class ClientRepository : BaseRepository<Client>, IClientRepository
     /// <inheritdoc/>
     public Task<Client?> FindByIdAsync(Guid id, CancellationToken ct = default) =>
         _context.Clients.FirstOrDefaultAsync(c => c.Id == id, ct);
+
+    /// <inheritdoc/>
+    public async Task<IReadOnlyList<Client>> GetAllAsync(CancellationToken ct = default) =>
+        await _context.Clients.ToListAsync(ct);
 }

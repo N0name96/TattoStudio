@@ -13,22 +13,22 @@ namespace TattoStudio.Application.UseCases.Consents.Commands.SignConsent;
 /// </summary>
 public sealed class SignConsentCommandHandler : IRequestHandler<SignConsentCommand, ConsentDto>
 {
-    private readonly IConsentTokenService   _consentTokenService;
-    private readonly IConsentRepository     _consentRepository;
+    private readonly IConsentTokenService _consentTokenService;
+    private readonly IConsentRepository _consentRepository;
     private readonly IAppointmentRepository _appointmentRepository;
-    private readonly IMapper                _mapper;
+    private readonly IMapper _mapper;
 
     /// <summary>Inyecta los servicios y repositorios requeridos.</summary>
     public SignConsentCommandHandler(
-        IConsentTokenService    consentTokenService,
-        IConsentRepository      consentRepository,
-        IAppointmentRepository  appointmentRepository,
-        IMapper                 mapper)
+        IConsentTokenService consentTokenService,
+        IConsentRepository consentRepository,
+        IAppointmentRepository appointmentRepository,
+        IMapper mapper)
     {
-        _consentTokenService    = consentTokenService;
-        _consentRepository      = consentRepository;
-        _appointmentRepository  = appointmentRepository;
-        _mapper                 = mapper;
+        _consentTokenService = consentTokenService;
+        _consentRepository = consentRepository;
+        _appointmentRepository = appointmentRepository;
+        _mapper = mapper;
     }
 
     /// <summary>

@@ -20,20 +20,27 @@ public sealed class AppointmentRepository : BaseRepository<Appointment>, IAppoin
         _context.Appointments.FirstOrDefaultAsync(a => a.Id == id, ct);
 
     /// <inheritdoc/>
+    public Task<Appointment?> FindByIdWithArtistAsync(Guid id, CancellationToken ct = default) =>
+        _context.Appointments
+            .Include(a => a.Artist)
+            .FirstOrDefaultAsync(a => a.Id == id, ct);
+
+    /// <inheritdoc/>
     public Task<bool> HasOverlapAsync(
         Guid              artistId,
         DateTime          dateTime,
         int               durationHours,
         CancellationToken ct = default)
     {
-        var newEnd = dateTime.AddHours(durationHours);
+        var utc    = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+        var newEnd = utc.AddHours(durationHours);
 
         return _context.Appointments.AnyAsync(a =>
             a.ArtistId == artistId &&
             (a.Status == AppointmentStatus.Pendiente ||
              a.Status == AppointmentStatus.Confirmada) &&
             a.DateTime            < newEnd &&
-            a.DateTime.AddHours(a.DurationHours) > dateTime,
+            a.DateTime.AddHours(a.DurationHours) > utc,
             ct);
     }
 
@@ -48,10 +55,10 @@ public sealed class AppointmentRepository : BaseRepository<Appointment>, IAppoin
         var query = _context.Appointments.AsQueryable();
 
         if (from.HasValue)
-            query = query.Where(a => a.DateTime >= from.Value);
+            query = query.Where(a => a.DateTime >= DateTime.SpecifyKind(from.Value, DateTimeKind.Utc));
 
         if (to.HasValue)
-            query = query.Where(a => a.DateTime <= to.Value);
+            query = query.Where(a => a.DateTime <= DateTime.SpecifyKind(to.Value, DateTimeKind.Utc));
 
         if (clientId.HasValue)
             query = query.Where(a => a.ClientId == clientId.Value);

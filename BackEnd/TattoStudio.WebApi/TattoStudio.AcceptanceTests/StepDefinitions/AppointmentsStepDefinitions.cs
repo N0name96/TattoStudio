@@ -41,7 +41,10 @@ public class AppointmentsStepDefinitions
             using var doc = JsonDocument.Parse(body);
             if (doc.RootElement.TryGetProperty("id", out var idProp) &&
                 Guid.TryParse(idProp.GetString(), out var id))
+            {
                 _artistId = id;
+                _state.LastArtistId = id;
+            }
         }
     }
 
@@ -64,7 +67,10 @@ public class AppointmentsStepDefinitions
             using var doc = JsonDocument.Parse(body);
             if (doc.RootElement.TryGetProperty("id", out var idProp) &&
                 Guid.TryParse(idProp.GetString(), out var id))
+            {
                 _clientId = id;
+                _state.LastClientId = id;
+            }
         }
     }
 
@@ -106,6 +112,10 @@ public class AppointmentsStepDefinitions
             $"{date}T{time}:00Z",
             null,
             System.Globalization.DateTimeStyles.RoundtripKind);
+
+        // Fallback a ScenarioState si las IDs locales no están asignadas (ej. Finance background)
+        if (_clientId == Guid.Empty) _clientId = _state.LastClientId;
+        if (_artistId == Guid.Empty) _artistId = _state.LastArtistId;
 
         var payload = new
         {

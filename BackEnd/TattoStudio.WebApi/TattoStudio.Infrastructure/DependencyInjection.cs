@@ -41,6 +41,17 @@ public static class DependencyInjection
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<IConsentTokenService, ConsentTokenService>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<IStockItemRepository, StockItemRepository>();
+        services.AddScoped<IArtistCommissionsLogRepository, ArtistCommissionsLogRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+        services.AddScoped<IGoogleOAuthTokenRepository, GoogleOAuthTokenRepository>();
+        services.AddScoped<IVeriFactuService, NullVeriFactuService>();
+        services.AddScoped<IGoogleCalendarService, NullGoogleCalendarService>();
+        services.AddScoped<IAppointmentMediaRepository, AppointmentMediaRepository>();
+        services.AddScoped<ISupabaseStorageService, NullSupabaseStorageService>();
+        services.AddScoped<IDashboardRepository, DashboardRepository>();
 
         return services;
     }

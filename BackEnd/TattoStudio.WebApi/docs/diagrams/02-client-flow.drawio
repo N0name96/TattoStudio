@@ -1,0 +1,145 @@
+<mxfile>
+  <diagram name="Client Flow">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="2" value="Flujo de Gestión de Clientes — /api/clients" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="1000" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Auth guard box -->
+        <mxCell id="auth" value="Requiere: Authorization: Bearer {JWT}&lt;br&gt;Política: &quot;Staff&quot; (role = 0 o 1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="560" y="70" width="400" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===================== POST /api/clients ===================== -->
+        <mxCell id="p1" value="POST /api/clients" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2" value="Body:&lt;br&gt;{ name, phone, email,&lt;br&gt;birthDate, medicalNotes? }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="220" width="260" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3" value="FluentValidation&lt;br&gt;CreateClientCommandValidator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="p4" value="¿Válido?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="110" y="410" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p5" value="400 Bad Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="520" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="p6" value="new Client(name, phone,&lt;br&gt;email, birthDate, notes)&lt;br&gt;Id = Guid.NewGuid()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="510" width="200" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p7" value="ClientRepository.AddAsync()&lt;br&gt;SaveChangesAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="610" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="p8" value="201 Created&lt;br&gt;Location: /api/clients/{id}&lt;br&gt;{ id: &quot;...&quot; }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="700" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows POST -->
+        <mxCell id="ep1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="p2" target="p3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="p3" target="p4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep3" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="p4" target="p5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep4" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="p4" target="p6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="p6" target="p7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="p7" target="p8" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===================== GET /api/clients ===================== -->
+        <mxCell id="g1" value="GET /api/clients" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="160" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="g2" value="GetAllClientsQuery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="490" y="230" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="g3" value="ClientRepository.GetAllAsync()&lt;br&gt;SELECT * FROM clients" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="490" y="310" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="g4" value="AutoMapper&lt;br&gt;Client → GetAllClientsResult" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="490" y="400" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="g5" value="200 OK&lt;br&gt;[ { id, name, phone, email,&lt;br&gt;birthDate, medicalNotes }, ... ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="479" y="490" width="262" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eg1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g2" target="g3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eg2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g3" target="g4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eg3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="g4" target="g5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===================== GET /api/clients/{id} ===================== -->
+        <mxCell id="gi1" value="GET /api/clients/{id}" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="870" y="160" width="240" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="gi2" value="GetClientByIdQuery(id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="870" y="230" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="gi3" value="ClientRepository.FindByIdAsync(id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="870" y="310" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="gi4" value="¿Encontrado?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="900" y="390" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="gi5" value="404 Not Found" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="400" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="gi6" value="AutoMapper&lt;br&gt;Client → GetClientByIdResult" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="870" y="490" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="gi7" value="200 OK&lt;br&gt;{ id, name, phone, email,&lt;br&gt;birthDate, medicalNotes }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="580" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="egi1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="gi2" target="gi3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="egi2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="gi3" target="gi4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="egi3" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="gi4" target="gi5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="egi4" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="gi4" target="gi6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="egi5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="gi6" target="gi7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===================== PUT /api/clients/{id} ===================== -->
+        <mxCell id="u1" value="PUT /api/clients/{id}" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="160" width="240" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="u2" value="Body:&lt;br&gt;{ name, phone, email,&lt;br&gt;birthDate, medicalNotes? }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="230" width="280" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="u3" value="FluentValidation&lt;br&gt;UpdateClientCommandValidator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="330" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="u4" value="¿Válido?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="420" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="u5" value="400 Bad Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="430" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="u6" value="ClientRepository.FindByIdAsync(id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="520" width="280" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="u7" value="¿Encontrado?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="600" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="u8" value="404 Not Found" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="610" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="u9" value="client.Update(name, phone,&lt;br&gt;email, birthDate, notes)&lt;br&gt;SaveChangesAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="700" width="280" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="u10" value="200 OK&lt;br&gt;{ id, name, phone, email,&lt;br&gt;birthDate, medicalNotes }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="800" width="280" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eu1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u2" target="u3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u3" target="u4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu3" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u4" target="u5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu4" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u4" target="u6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u6" target="u7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu6" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u7" target="u8" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu7" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u7" target="u9" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eu8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="u9" target="u10" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

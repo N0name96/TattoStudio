@@ -30,6 +30,11 @@ app.MapClientsController();
 app.MapArtistsController();
 app.MapAppointmentsController();
 app.MapConsentsController();
+app.MapPaymentsController();
+app.MapStockController();
+app.MapBillingController();
+app.MapIntegrationsController();
+app.MapDashboardController();
 
 app.Run();
 

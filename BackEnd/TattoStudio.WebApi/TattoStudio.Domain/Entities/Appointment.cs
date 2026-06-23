@@ -24,7 +24,7 @@ public sealed class Appointment
         Id            = Guid.NewGuid();
         ClientId      = clientId;
         ArtistId      = artistId;
-        DateTime      = dateTime;
+        DateTime      = System.DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
         DurationHours = durationHours;
         DepositAmount = depositAmount;
 
@@ -79,4 +79,7 @@ public sealed class Appointment
         HasDeposit    = true;
         Status        = AppointmentStatus.Confirmada;
     }
+
+    /// <summary>Marca la cita como Completada (REG-05-01).</summary>
+    public void Complete() => Status = AppointmentStatus.Completada;
 }

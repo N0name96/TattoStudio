@@ -174,20 +174,20 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 5
   await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email",
                             "BirthDate",
                             "MedicalNotes"});
-                table1.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Pedro García",
                             "612345678",
                             "pedro@tattostudio.com",
                             "2000-01-15",
                             "Alérgico a látex"});
 #line 11
-    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table1, "When ");
+    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table15, "When ");
 #line hidden
 #line 14
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 201", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -223,18 +223,18 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 5
   await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email",
                             "BirthDate"});
-                table2.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "Ana Martín",
                             "699001122",
                             "ana@tattostudio.com",
                             "2005-07-10"});
 #line 18
-    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table2, "When ");
+    await testRunner.WhenAsync("envío POST autenticado a \"/api/clients\" con datos del cliente:", ((string)(null)), table16, "When ");
 #line hidden
 #line 21
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 201", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -390,20 +390,20 @@ namespace TattoStudio.AcceptanceTests.Features
     await testRunner.GivenAsync("existe un cliente con email \"update@tattostudio.com\" y fecha de nacimiento \"1988-" +
                         "11-25\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email",
                             "BirthDate",
                             "MedicalNotes"});
-                table3.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "Pedro Renovado",
                             "699887766",
                             "renovado@tattostudio.com",
                             "1988-11-25",
                             "Sin alergias"});
 #line 42
-    await testRunner.WhenAsync("envío PUT autenticado al último cliente creado con datos:", ((string)(null)), table3, "When ");
+    await testRunner.WhenAsync("envío PUT autenticado al último cliente creado con datos:", ((string)(null)), table17, "When ");
 #line hidden
 #line 45
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -439,19 +439,19 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 5
   await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email",
                             "BirthDate"});
-                table4.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "Nadie",
                             "600000000",
                             "nadie@tattostudio.com",
                             "2000-01-01"});
 #line 49
     await testRunner.WhenAsync("envío PUT autenticado al cliente \"00000000-0000-0000-0000-000000000000\" con datos" +
-                        ":", ((string)(null)), table4, "When ");
+                        ":", ((string)(null)), table18, "When ");
 #line hidden
 #line 52
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 404", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

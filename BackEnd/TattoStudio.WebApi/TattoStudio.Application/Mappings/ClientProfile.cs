@@ -1,5 +1,7 @@
 using AutoMapper;
 using TattoStudio.Application.UseCases.Clients.Commands.Create;
+using TattoStudio.Application.UseCases.Clients.Commands.Update;
+using TattoStudio.Application.UseCases.Clients.Queries.GetAll;
 using TattoStudio.Application.UseCases.Clients.Queries.GetById;
 using TattoStudio.Domain.Entities;
 
@@ -15,5 +17,7 @@ public sealed class ClientProfile : Profile
     {
         CreateMap<Client, CreateClientResult>();
         CreateMap<Client, GetClientByIdResult>();
+        CreateMap<Client, GetAllClientsResult>();
+        CreateMap<Client, UpdateClientResult>();
     }
 }

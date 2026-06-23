@@ -338,15 +338,15 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 9
   await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "SignatureBase64",
                             "IpAddress"});
-                table1.AddRow(new string[] {
+                table19.AddRow(new string[] {
                             "AAEC/w==",
                             "192.168.1.1"});
 #line 39
     await testRunner.WhenAsync("envío POST anónimo para firmar el consentimiento en token \"token.invalido.xxx\" co" +
-                        "n la firma:", ((string)(null)), table1, "When ");
+                        "n la firma:", ((string)(null)), table19, "When ");
 #line hidden
 #line 42
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 401", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -382,12 +382,12 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 45
     await testRunner.GivenAsync("el QR de la última cita ha sido generado y el token fue extraído", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
                             "SignatureBase64"});
-                table2.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "AAEC/w=="});
 #line 46
-    await testRunner.WhenAsync("envío POST anónimo para firmar el consentimiento con la firma:", ((string)(null)), table2, "When ");
+    await testRunner.WhenAsync("envío POST anónimo para firmar el consentimiento con la firma:", ((string)(null)), table20, "When ");
 #line hidden
 #line 49
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
@@ -432,12 +432,12 @@ namespace TattoStudio.AcceptanceTests.Features
 #line 55
     await testRunner.AndAsync("el consentimiento ya ha sido firmado con la firma \"AAEC/w==\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
                             "SignatureBase64"});
-                table3.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "AAEC/w=="});
 #line 56
-    await testRunner.WhenAsync("envío POST anónimo para firmar el consentimiento con la firma:", ((string)(null)), table3, "When ");
+    await testRunner.WhenAsync("envío POST anónimo para firmar el consentimiento con la firma:", ((string)(null)), table21, "When ");
 #line hidden
 #line 59
     await testRunner.ThenAsync("la respuesta tiene el código HTTP 403", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");

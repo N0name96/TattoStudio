@@ -35,6 +35,9 @@ public interface IAppointmentRepository
         Guid?             artistId  = null,
         CancellationToken ct        = default);
 
+    /// <summary>Busca una cita por Id incluyendo la navegación al artista.</summary>
+    Task<Appointment?> FindByIdWithArtistAsync(Guid id, CancellationToken ct = default);
+
     /// <summary>Persiste los cambios pendientes en el contexto.</summary>
     Task SaveChangesAsync(CancellationToken ct = default);
 }

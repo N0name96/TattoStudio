@@ -1,0 +1,132 @@
+<mxfile>
+  <diagram name="Appointment Flow">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="2" value="Flujo de Citas — /api/appointments" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="1000" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Auth guard -->
+        <mxCell id="auth" value="Requiere: Authorization: Bearer {JWT} — Política: &quot;Staff&quot; (role = 0 o 1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="460" y="70" width="520" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ===================== POST /api/appointments ===================== -->
+        <mxCell id="post_title" value="POST /api/appointments" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="280" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="post1" value="Body:&lt;br&gt;{ clientId, artistId, dateTime, description }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="320" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="post2" value="FluentValidation&lt;br&gt;CreateAppointmentCommandValidator&lt;br&gt;(DateTime futura, IDs no vacíos)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="310" width="320" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="post3" value="¿Válido?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="120" y="410" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="post4" value="400 Bad Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="510" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="post5" value="Verificar que Client existe&lt;br&gt;ClientRepository.FindByIdAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="500" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="post6" value="¿Cliente existe?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="240" y="590" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="post7" value="404 Not Found&lt;br&gt;(cliente)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="600" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="post8" value="Verificar que Artist existe&lt;br&gt;ArtistRepository.FindByIdAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="690" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="post9" value="¿Artista existe?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="240" y="780" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="post10" value="404 Not Found&lt;br&gt;(artista)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="790" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="post11" value="new Appointment(clientId, artistId,&lt;br&gt;dateTime, description)&lt;br&gt;Status = Pending" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="880" width="300" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="post12" value="AppointmentRepository.AddAsync()&lt;br&gt;SaveChangesAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="980" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="post13" value="201 Created&lt;br&gt;{ id: &quot;...&quot; }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="1070" width="240" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- POST arrows -->
+        <mxCell id="ep1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post1" target="post2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post2" target="post3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep3" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post3" target="post4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep4" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post3" target="post5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post5" target="post6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep6" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post6" target="post7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep7" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post6" target="post8" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post8" target="post9" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep9" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post9" target="post10" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep10" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post9" target="post11" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post11" target="post12" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="post12" target="post13" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===================== GET /api/appointments ===================== -->
+        <mxCell id="get_title" value="GET /api/appointments" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="160" width="260" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="get1" value="GetAllAppointmentsQuery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="780" y="230" width="260" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="get2" value="AppointmentRepository.GetAllAsync()&lt;br&gt;SELECT * FROM appointments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="780" y="310" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="get3" value="AutoMapper&lt;br&gt;Appointment → AppointmentDto" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="780" y="400" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="get4" value="200 OK — [ { id, clientId, artistId,&lt;br&gt;dateTime, description, status }, ... ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="490" width="300" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eg1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="get1" target="get2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eg2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="get2" target="get3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eg3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="get3" target="get4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ===================== GET /api/appointments/{id}/qr ===================== -->
+        <mxCell id="qr_title" value="GET /api/appointments/{id}/qr" style="text;html=1;strokeColor=none;fillColor=#e1d5e7;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="160" width="340" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr1" value="GenerateQrQuery(appointmentId)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="230" width="300" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr2" value="Verificar cita existe&lt;br&gt;AppointmentRepository.FindByIdAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="310" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr3" value="¿Existe?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="400" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr4" value="404 Not Found" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="410" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr5" value="ConsentTokenService&lt;br&gt;GenerateConsentToken(appointmentId)&lt;br&gt;→ JWT HS256, exp 30 min" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="500" width="300" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr6" value="QRCoder.PngByteQRCode&lt;br&gt;genera imagen PNG con la URL&lt;br&gt;/api/public/consents/{token}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="610" width="300" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="qr7" value="200 OK&lt;br&gt;{ qrBase64: &quot;iVBOR...&quot;, token: &quot;eyJ...&quot; }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="720" width="300" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eqr1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="qr1" target="qr2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eqr2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="qr2" target="qr3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eqr3" value="NO" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="qr3" target="qr4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eqr4" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="qr3" target="qr5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eqr5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="qr5" target="qr6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eqr6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="qr6" target="qr7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,117 @@
+<mxfile>
+  <diagram name="Clean Architecture">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="2" value="Arquitectura Limpia (Uncle Bob) — TattoStudio" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="750" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- DOMAIN LAYER -->
+        <mxCell id="domain_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="550" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="domain_title" value="TattoStudio.Domain" style="text;html=1;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;align=center;" vertex="1" parent="1">
+          <mxGeometry x="430" y="360" width="290" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="d1" value="Entities&lt;br&gt;User · Client · Artist&lt;br&gt;Appointment · Consent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="320" y="400" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="d2" value="Exceptions&lt;br&gt;NotFoundException&lt;br&gt;UnauthorizedException&lt;br&gt;ForbiddenException&lt;br&gt;BusinessException" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="540" y="400" width="200" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="d3" value="Domain Methods&lt;br&gt;Client.Update()&lt;br&gt;Consent.Sign()&lt;br&gt;(Rich Domain Model)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="320" y="510" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="domain_note" value="SIN dependencias externas" style="text;html=1;fontStyle=2;fontSize=10;strokeColor=none;fillColor=none;align=center;" vertex="1" parent="1">
+          <mxGeometry x="380" y="650" width="390" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- APPLICATION LAYER -->
+        <mxCell id="app_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="160" y="160" width="830" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="app_title" value="TattoStudio.Application" style="text;html=1;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;align=center;" vertex="1" parent="1">
+          <mxGeometry x="460" y="170" width="290" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" value="Contracts (interfaces)&lt;br&gt;IUserRepository&lt;br&gt;IClientRepository · IConsentRepository&lt;br&gt;IArtistRepository · IAppointmentRepository&lt;br&gt;IConsentTokenService · IJwtTokenService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="170" y="195" width="230" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="UseCases (CQRS)&lt;br&gt;Commands: Create/Update + Validator&lt;br&gt;Queries: GetById / GetAll&lt;br&gt;MediatR IRequest&lt;TResult&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="195" width="220" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="Behaviours&lt;br&gt;ValidationBehavior&lt;br&gt;(ejecuta FluentValidation&lt;br&gt;antes de cada handler)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="660" y="195" width="185" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="Mappings&lt;br&gt;AutoMapper Profiles&lt;br&gt;XxxProfile : Profile" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="860" y="195" width="120" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- INFRASTRUCTURE LAYER -->
+        <mxCell id="inf_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="20" y="730" width="1110" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="inf_title" value="TattoStudio.Infrastructure" style="text;html=1;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;align=center;" vertex="1" parent="1">
+          <mxGeometry x="460" y="740" width="290" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="i1" value="Persistence&lt;br&gt;TattoStudioDbContext (EF Core 8)&lt;br&gt;Configurations (Fluent API)&lt;br&gt;DatabaseInitializer (IF NOT EXISTS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="775" width="240" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="i2" value="Repositories&lt;br&gt;BaseRepository&lt;T&gt;&lt;br&gt;UserRepository&lt;br&gt;ClientRepository · ConsentRepository&lt;br&gt;ArtistRepository · AppointmentRepository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="290" y="775" width="240" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="i3" value="Services&lt;br&gt;JwtTokenService&lt;br&gt;ConsentTokenService&lt;br&gt;(HS256 JWT generation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="775" width="220" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="i4" value="Settings&lt;br&gt;JwtSettings&lt;br&gt;(SecretKey, Issuer, Audience)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="790" y="775" width="200" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="i5" value="DB: Supabase / PostgreSQL&lt;br&gt;Npgsql + EF Core" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="775" width="110" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- API LAYER -->
+        <mxCell id="api_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="1110" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="api_title" value="TattoStudio.Api" style="text;html=1;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;align=center;" vertex="1" parent="1">
+          <mxGeometry x="460" y="30" width="290" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="api1" value="Controllers (Minimal API)&lt;br&gt;AuthController · ClientsController&lt;br&gt;ArtistsController · AppointmentsController&lt;br&gt;ConsentsController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="55" width="250" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="api2" value="DependencyInjection.cs&lt;br&gt;AddApi() — Swagger+JWT&lt;br&gt;AddAuthentication(JwtBearer)&lt;br&gt;AddAuthorizationBuilder (Staff/Admin)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="55" width="250" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="api3" value="Middleware&lt;br&gt;GlobalExceptionHandler&lt;br&gt;NotFoundException→404&lt;br&gt;ForbiddenException→403&lt;br&gt;UnauthorizedException→401" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="570" y="55" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="api4" value="Program.cs (28 líneas)&lt;br&gt;AddApplication()&lt;br&gt;AddInfrastructure()&lt;br&gt;AddApi()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="810" y="55" width="200" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="api5" value="Swagger UI&lt;br&gt;JWT Bearer Button&lt;br&gt;Tags por sección" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="55" width="90" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Dependency arrows (pointing inward) -->
+        <mxCell id="arr1" value="usa interfaces de" style="edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=open;strokeColor=#9673a6;fontStyle=2;fontSize=10;" edge="1" source="api_bg" target="app_bg" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arr2" value="implementa interfaces de" style="edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=open;strokeColor=#d6b656;fontStyle=2;fontSize=10;" edge="1" source="inf_bg" target="app_bg" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arr3" value="usa entidades de" style="edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=open;strokeColor=#82b366;fontStyle=2;fontSize=10;" edge="1" source="app_bg" target="domain_bg" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="leg" value="Regla de Dependencia: las flechas apuntan siempre hacia el interior → Domain no depende de nadie" style="text;html=1;fontStyle=2;fontSize=11;strokeColor=#6c8ebf;fillColor=#dae8fc;rounded=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="970" width="750" height="40" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
